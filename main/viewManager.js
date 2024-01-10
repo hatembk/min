@@ -5,6 +5,9 @@ var viewStateMap = {} // id: view state
 
 var temporaryPopupViews = {} // id: view
 
+// rate limit on "open in app" requests
+var globalLaunchRequests = 0
+
 const defaultViewWebPreferences = {
   nodeIntegration: false,
   nodeIntegrationInSubFrames: true,
@@ -18,10 +21,15 @@ const defaultViewWebPreferences = {
   allowPopups: false,
   // partition: partition || 'persist:webcontent',
   enableWebSQL: false,
-  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required')
+  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required'),
+  // match Chrome's default for anti-fingerprinting purposes (Electron defaults to 0)
+  minimumFontSize: 6
 }
 
 function createView (existingViewId, id, webPreferencesString, boundsString, events) {
+  if (viewStateMap[id]) {
+    console.warn("Creating duplicate view")
+  }
   viewStateMap[id] = { loadedInitialURL: false }
 
   let view
@@ -40,20 +48,41 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     view.webContents.on(event, function (e) {
       var args = Array.prototype.slice.call(arguments).slice(1)
 
-      mainWindow.webContents.send('view-event', {
-        viewId: id,
+      const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+      if (!eventTarget) {
+        //this can happen during shutdown - windows can be destroyed before the corresponding views, and the view can emit an event during that time
+        return
+      }
+
+      eventTarget.webContents.send('view-event', {
+        tabId: id,
         event: event,
         args: args
       })
     })
   })
 
+  view.webContents.on('select-bluetooth-device', function (event, deviceList, callback) {
+    event.preventDefault()
+    callback('')
+  })
+
   view.webContents.setWindowOpenHandler(function (details) {
-    if (details.disposition === 'background-tab') {
-      mainWindow.webContents.send('view-event', {
-        viewId: id,
+    /*
+      Opening a popup with window.open() generally requires features to be set
+      So if there are no features, the event is most likely from clicking on a link, which should open a new tab.
+      Clicking a link can still have a "new-window" or "foreground-tab" disposition depending on which keys are pressed
+      when it is clicked.
+      (https://github.com/minbrowser/min/issues/1835)
+    */
+    if (!details.features) {
+      const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+      eventTarget.webContents.send('view-event', {
+        tabId: id,
         event: 'new-tab',
-        args: [details.url]
+        args: [details.url, !(details.disposition === 'background-tab')]
       })
       return {
         action: 'deny'
@@ -77,19 +106,33 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     var popupId = Math.random().toString()
     temporaryPopupViews[popupId] = view
 
-    mainWindow.webContents.send('view-event', {
-      viewId: id,
+    const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+    eventTarget.webContents.send('view-event', {
+      tabId: id,
       event: 'did-create-popup',
       args: [popupId, url]
     })
   })
 
   view.webContents.on('ipc-message', function (e, channel, data) {
-    mainWindow.webContents.send('view-ipc', {
+    var senderURL
+    try {
+      senderURL = e.senderFrame.url
+    } catch (err) {
+      // https://github.com/minbrowser/min/issues/2052
+      console.warn('dropping message because senderFrame is destroyed', channel, data, err)
+      return
+    }
+
+    const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+    eventTarget.webContents.send('view-ipc', {
       id: id,
       name: channel,
       data: data,
-      frameId: e.frameId
+      frameId: e.frameId,
+      frameURL: senderURL
     })
   })
 
@@ -99,7 +142,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       return
     }
     event.preventDefault()
-    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
+    var title = l('loginPromptTitle').replace('%h', authInfo.host)
     createPrompt({
       text: title,
       values: [{ placeholder: l('username'), id: 'username', type: 'text' },
@@ -121,22 +164,17 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     if (!knownProtocols.includes(url.split(':')[0])) {
       var externalApp = app.getApplicationNameForProtocol(url)
       if (externalApp) {
-        // TODO find a better way to do this
-        // (the reason to use executeJS instead of the Electron dialog API is so we get the "prevent this page from creating additional dialogs" checkbox)
         var sanitizedName = externalApp.replace(/[^a-zA-Z0-9.]/g, '')
-        if (view.webContents.getURL()) {
-          view.webContents.executeJavaScript('confirm("' + l('openExternalApp').replace('%s', sanitizedName) + '")').then(function (result) {
-            if (result === true) {
-              electron.shell.openExternal(url)
-            }
-          })
-        } else {
-          // the code above tries to show the dialog in a browserview, but if the view has no URL, this won't work.
-          // so show the dialog globally as a fallback
+        if (globalLaunchRequests < 2) {
+          globalLaunchRequests++
+          setTimeout(function () {
+            globalLaunchRequests--
+          }, 20000)
           var result = electron.dialog.showMessageBoxSync({
             type: 'question',
             buttons: ['OK', 'Cancel'],
-            message: l('openExternalApp').replace('%s', sanitizedName).replace(/\\/g, '')
+            message: l('openExternalApp').replace('%s', sanitizedName).replace(/\\/g, ''),
+            detail: url.length > 160 ? url.substring(0, 160) + '...' : url
           })
 
           if (result === 0) {
@@ -167,9 +205,13 @@ function destroyView (id) {
     return
   }
 
-  if (viewMap[id] === mainWindow.getBrowserView()) {
-    mainWindow.setBrowserView(null)
-  }
+  windows.getAll().forEach(function (window) {
+    if (viewMap[id] === window.getBrowserView()) {
+      window.setBrowserView(null)
+      // TODO fix
+      windows.getState(window).selectedView = null
+    }
+  })
   viewMap[id].webContents.destroy()
 
   delete viewMap[id]
@@ -182,8 +224,19 @@ function destroyAllViews () {
   }
 }
 
-function setView (id) {
-  mainWindow.setBrowserView(viewMap[id])
+function setView (id, senderContents) {
+  const win = windows.windowFromContents(senderContents).win
+
+  // setBrowserView causes flickering, so we only want to call it if the view is actually changing
+  // see https://github.com/minbrowser/min/issues/1966
+  if (win.getBrowserView() !== viewMap[id]) {
+    if (viewStateMap[id].loadedInitialURL) {
+      win.setBrowserView(viewMap[id])
+    } else {
+      win.setBrowserView(null)
+    }
+    windows.getState(win).selectedView = id
+  }
 }
 
 function setBounds (id, bounds) {
@@ -197,21 +250,28 @@ function focusView (id) {
   // also, make sure the view exists, since it might not if the app is shutting down
   if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
-  } else if (mainWindow) {
-    mainWindow.webContents.focus()
+    return true
+  } else if (BrowserWindow.fromBrowserView(viewMap[id])) {
+    BrowserWindow.fromBrowserView(viewMap[id]).webContents.focus()
+    return true
   }
 }
 
-function hideCurrentView () {
-  mainWindow.setBrowserView(null)
-  mainWindow.webContents.focus()
+function hideCurrentView (senderContents) {
+  const win = windows.windowFromContents(senderContents).win
+
+  win.setBrowserView(null)
+  windows.getState(win).selectedView = null
+  if (win.isFocused()) {
+    win.webContents.focus()
+  }
 }
 
 function getView (id) {
   return viewMap[id]
 }
 
-function getViewIDFromWebContents (contents) {
+function getTabIDFromWebContents (contents) {
   for (var id in viewMap) {
     if (viewMap[id].webContents === contents) {
       return id
@@ -232,10 +292,13 @@ ipc.on('destroyAllViews', function () {
 })
 
 ipc.on('setView', function (e, args) {
-  setView(args.id)
+  setView(args.id, e.sender)
   setBounds(args.id, args.bounds)
-  if (args.focus) {
-    focusView(args.id)
+  if (args.focus && BrowserWindow.fromWebContents(e.sender) && BrowserWindow.fromWebContents(e.sender).isFocused()) {
+    const couldFocus = focusView(args.id)
+    if (!couldFocus) {
+      e.sender.focus()
+    }
   }
 })
 
@@ -248,13 +311,22 @@ ipc.on('focusView', function (e, id) {
 })
 
 ipc.on('hideCurrentView', function (e) {
-  hideCurrentView()
+  hideCurrentView(e.sender)
 })
 
 ipc.on('loadURLInView', function (e, args) {
+  const win = windows.windowFromContents(e.sender).win
+
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
   if (!viewStateMap[args.id].loadedInitialURL) {
-    viewMap[args.id].setBackgroundColor('#fff')
+    // Give the site a chance to display something before setting the background, in case it has its own dark theme
+    viewMap[args.id].webContents.once('dom-ready', function() {
+      viewMap[args.id].setBackgroundColor('#fff')
+    })
+    // If the view has no URL, it won't be attached yet
+    if (args.id === windows.getState(win).selectedView) {
+      win.setBrowserView(viewMap[args.id])
+    }
   }
   viewMap[args.id].webContents.loadURL(args.url)
   viewStateMap[args.id].loadedInitialURL = true
@@ -282,16 +354,16 @@ ipc.on('callViewMethod', function (e, data) {
   if (result instanceof Promise) {
     result.then(function (result) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', { callId: data.callId, error: null, result })
+        e.sender.send('async-call-result', { callId: data.callId, error: null, result })
       }
     })
     result.catch(function (error) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result: null })
+        e.sender.send('async-call-result', { callId: data.callId, error, result: null })
       }
     })
   } else if (data.callId) {
-    mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result })
+    e.sender.send('async-call-result', { callId: data.callId, error, result })
   }
 })
 
@@ -308,7 +380,7 @@ ipc.on('getCapture', function (e, data) {
       return
     }
     img = img.resize({ width: data.width, height: data.height })
-    mainWindow.webContents.send('captureData', { id: data.id, url: img.toDataURL() })
+    e.sender.send('captureData', { id: data.id, url: img.toDataURL() })
   })
 })
 

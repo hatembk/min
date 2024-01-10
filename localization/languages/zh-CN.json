@@ -50,6 +50,9 @@
     "addBookmark": "增加书签",
     "searchBookmarks": "搜索书签内容",
     "bookmarksAddTag": "新增标签",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "近似项目",
     "searchHistory": "搜索历史",
     "importBookmarks": "自HTML文件导入书签",
@@ -149,7 +152,7 @@
     "settingsDarkModeNever": "禁用",
     "settingsDarkModeNight": "只在夜晚开启",
     "settingsDarkModeAlways": "一直开启",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "跟随系统主题",
     "settingsSiteThemeToggle": "启用网站主题",
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允许自定义脚本",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "自定义浏览器User-Agent",
     "settingsUpdateNotificationsToggle": "自动检查更新",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "发送使用情况统计信息 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多说明</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "搜索引擎",
     "settingsDefaultSearchEngine": "选择默认的搜索引擎:",
     "settingsDDGExplanation": "将 DuckDuckGo 设为默认的搜索引擎可以直接在搜索栏查看搜索结果。",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "复制标签页",
     "appMenuNewPrivateTab": "新的隐私标签页",
     "appMenuNewTask": "新标签组",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "页面另存为",
     "appMenuPrint": "打印",
     "appMenuEdit": "编辑",
@@ -224,6 +236,7 @@
     "appMenuQuit": "退出 %n",
     "appMenuBringToFront": "前置所有窗口",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<input type='text'/> / <span id='total'></span> 页"
     },
@@ -260,6 +273,7 @@
     "passwordManagerSetupStep2": "然后把工具拖动到下面的框中：",
     "passwordManagerSetupDragBox": "把工具拖动到这里",
     "passwordManagerSetupInstalling": "安装中...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "登录密码管理器以使用自动填充。你的凭证不会在Min内存储。",
     "disableAutofill": "关闭自动填充",
     "passwordManagerSetupUnlockError": "解锁密码存储区失败：",
@@ -276,7 +290,7 @@
     "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "删除保存的%s密码？",
     /* Dialogs */
-    "loginPromptTitle": "登录 %h (%r)",
+    "loginPromptTitle": "登录 %h",
     "dialogConfirmButton": "确认",
     "dialogSkipButton": "取消",
     "username": "用户名",
@@ -284,7 +298,7 @@
     "password": "密码",
     "secretKey": "密钥",
     "openExternalApp": null, //missing translation
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "点击复制", 
+    "copied": "已复制"
   }
 }

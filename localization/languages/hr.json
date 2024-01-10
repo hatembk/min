@@ -50,6 +50,9 @@
     "addBookmark": "Dodaj oznaku",
     "searchBookmarks": "Pretražite oznake",
     "bookmarksAddTag": "Dodaj oznaku ...",
+    "bookmarksRenameTag": "Preimenuj Oznaku",
+    "bookmarksDeleteTag": "Obriši Oznaku",
+    "deleteBookmarksWithTag": "Obriši Značajke sa Oznakom",
     "bookmarksSimilarItems": "Slični predmeti",
     "searchHistory": "Povijest pretraživanja",
     "importBookmarks": "Uvoz oznaka iz HTML datoteke",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Korisničke skripte omogućuju vam izmjenu ponašanja web stranica - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saznajte više</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Upotrijebite prilagođeni korisnički agent",
     "settingsUpdateNotificationsToggle": "Automatski provjeri ima li ažuriranja",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Pošaljite statistiku upotrebe (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Više informacija</a>)"
     },
+    "settingsStartupOptions": "Kada se Min pokrene:", 
+    "settingsStartupCreateTask": "Ponovno otvori prethodne kartice", 
+    "settingsStartupNewTaskandBackground": "Premjesti prethodne kartice u pozadinski zadatak", 
+    "settingsStartupNewTaskOnly": "Otvori novi prazni zadatak", 
+    "settingsNewWindowOptions": "U novim prozorima:",
+    "settingsNewWindowCreateTask": "Stvorite novi zadatak",
+    "settingsNewWindowPickTask": "Prikaži popis zadataka",
     "settingsSearchEngineHeading": "Tražilica",
     "settingsDefaultSearchEngine": "Odaberite zadanu tražilicu:",
     "settingsDDGExplanation": "Postavite DuckDuckGo kao zadanu tražilicu da biste vidjeli trenutne odgovore na traci za pretraživanje.",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "Dvostruka kartica",
     "appMenuNewPrivateTab": "Nova privatna kartica",
     "appMenuNewTask": "Novi Zadatak",
+    "appMenuNewWindow": "Novi prozor",
     "appMenuSavePageAs": "Spremi stranicu kao",
     "appMenuPrint": "Ispiši",
     "appMenuEdit": "Uredi",
@@ -224,6 +236,7 @@
     "appMenuQuit": "Zatvori %n",
     "appMenuBringToFront": "Stavite sve naprijed",
     /* PDF Viewer */
+    "PDFInvertPage": "Promijeni boje stranice",
     "PDFPageCounter": {
       "unsafeHTML": "stranica <input type='text'/> od <span id='total'></span>"
     },
@@ -260,6 +273,7 @@
     "passwordManagerSetupStep2": "Zatim povucite alat u donji okvir:",
     "passwordManagerSetupDragBox": "Povucite alat ovdje",
     "passwordManagerSetupInstalling": "Instaliranje...",
+    "passwordManagerBitwardenSignIn": "Da biste povezali svoj Bitwarden račun, idite na vault.bitwarden.com/#/settings/account, pomaknite se do dna i odaberite \"View API Key\". Zatim zalijepite vrijednosti u polja u nastavku.",
     "passwordManagerSetupSignIn": "Prijavite se na upravitelj lozinki da biste počeli koristiti automatsko popunjavanje. Vjerodajnice se neće pohraniti nigdje u Min.",
     "disableAutofill": "Onemogući automatsko popunjavanje",
     "passwordManagerSetupUnlockError": "Otključavanje spremišta lozinki nije uspjelo: ",
@@ -276,7 +290,7 @@
     "savedPasswordsNeverSavedLabel": "Nikad spremljeno",
     "deletePassword": "Izbriši lozinku za %s?",
     /* Dialogs */
-    "loginPromptTitle": "Prijavi se u %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Prijavi se u %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Potvrdi",
     "dialogSkipButton": "Otkaži",
     "username": "Korisničko ime",

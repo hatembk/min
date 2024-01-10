@@ -5,6 +5,7 @@ var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var showDividerCheckbox = document.getElementById('checkbox-show-divider')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
+var userscriptsShowDirectorySection = document.getElementById('userscripts-show-directory')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
 var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
 var autoPlayCheckbox = document.getElementById('checkbox-enable-autoplay')
@@ -230,16 +231,46 @@ siteThemeCheckbox.addEventListener('change', function (e) {
   settings.set('siteTheme', this.checked)
 })
 
+/* startup settings */
+
+var startupSettingInput = document.getElementById('startup-options')
+
+settings.get('startupTabOption', function(value = 2) {
+  startupSettingInput.value = value
+})
+
+startupSettingInput.addEventListener('change', function() {
+  settings.set('startupTabOption', parseInt(this.value))
+})
+
+/* new window settings */
+
+var newWindowSettingInput = document.getElementById('new-window-options')
+
+settings.get('newWindowOption', function(value = 1) {
+  newWindowSettingInput.value = value
+})
+
+newWindowSettingInput.addEventListener('change', function() {
+  settings.set('newWindowOption', parseInt(this.value))
+})
+
 /* userscripts setting */
 
 settings.get('userscriptsEnabled', function (value) {
   if (value === true) {
     userscriptsCheckbox.checked = true
+    userscriptsShowDirectorySection.hidden = false
   }
 })
 
 userscriptsCheckbox.addEventListener('change', function (e) {
   settings.set('userscriptsEnabled', this.checked)
+  userscriptsShowDirectorySection.hidden = !this.checked
+})
+
+userscriptsShowDirectorySection.getElementsByTagName('a')[0].addEventListener('click', function() {
+  postMessage({ message: 'showUserscriptDirectory' })
 })
 
 /* show divider between tabs setting */
@@ -410,7 +441,7 @@ settings.get('keyMap', function (keyMapSettings) {
 })
 
 function formatCamelCase (text) {
-  var result = text.replace(/([A-Z])/g, ' $1')
+  var result = text.replace(/([a-z])([A-Z])/g, '$1 $2')
   return result.charAt(0).toUpperCase() + result.slice(1)
 }
 

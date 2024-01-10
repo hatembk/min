@@ -51,6 +51,9 @@
     "addBookmark": null, //missing translation
     "searchBookmarks": "جستجوی نشانک ها",
     "bookmarksAddTag": null, //missing translation
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": null, //missing translation
     "searchHistory": "جستجوی تاریخچه",
     "importBookmarks": null, //missing translation
@@ -161,9 +164,17 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": null, //missing translation
     "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "موتور جستجو",
     "settingsDefaultSearchEngine": "انتخاب موتور جستجوی پیش فرض:",
     "settingsDDGExplanation": "DuckDuckGo را به عنوان موتور جستجوی پیش فرض تنظیم کنید تا در نوار جستجو نتایج آنی ببینید.",
@@ -183,6 +194,7 @@
     "appMenuDuplicateTab": "تکرار برگه",
     "appMenuNewPrivateTab": "ساخت برگه پنهان",
     "appMenuNewTask": "وظیفه جدید",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "ذخیره صفحه",
     "appMenuPrint": "جاپ",
     "appMenuEdit": "ویرایش",
@@ -223,6 +235,7 @@
     "appMenuQuit": "خروج از %n",
     "appMenuBringToFront": "نمایش همه",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "صفحه <input type='text'/> از <span id='total'></span>"
     },
@@ -255,6 +268,7 @@
     "passwordManagerSetupStep2": null, //missing translation
     "passwordManagerSetupDragBox": null, //missing translation
     "passwordManagerSetupInstalling": null, //missing translation
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": null, //missing translation
     "disableAutofill": null, //missing translation
     "passwordManagerSetupUnlockError": null, //missing translation

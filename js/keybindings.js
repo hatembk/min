@@ -90,22 +90,28 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
       combo: keys,
       keys: keys.split('+'),
       fn: shortcutCallback,
-      keyUp: options.keyUp
+      keyUp: options.keyUp || false
     })
-    if (!registeredMousetrapBindings[keys]) {
-      // mousetrap only allows one listener for each key combination
+    if (!registeredMousetrapBindings[keys + (options.keyUp ? '-keyup' : '')]) {
+      // mousetrap only allows one listener for each key combination (+keyup variant)
       // so register a single listener, and have it call all the other listeners that we have
       Mousetrap.bind(keys, function (e, combo) {
         shortcutsList.forEach(function (shortcut) {
-          if (shortcut.combo === combo) {
+          if (shortcut.combo === combo && (e.type === 'keyup') === shortcut.keyUp) {
             shortcut.fn(e, combo)
           }
         })
       }, (options.keyUp ? 'keyup' : null))
-      registeredMousetrapBindings[keys] = true
+      registeredMousetrapBindings[keys + (options.keyUp ? '-keyup' : '')] = true
     }
   })
 }
+
+let keyboardMap
+
+navigator.keyboard.getLayoutMap().then(map => {
+  keyboardMap = map
+})
 
 function initialize () {
   webviews.bindEvent('before-input-event', function (tabId, input) {
@@ -133,7 +139,9 @@ function initialize () {
       shortcut.keys.forEach(function (key) {
         if (!(
           key === input.key.toLowerCase() ||
-        key === input.code.replace('Digit', '') ||
+        // we need this check because the alt key can change the typed key, causing input.key to be a special character instead of the base key
+        // but input.code isn't layout aware, so we need to map it to the correct key for the layout
+        (keyboardMap && key === keyboardMap.get(input.code)) ||
         (key === 'esc' && input.key === 'Escape') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
         (key === 'right' && input.key === 'ArrowRight') ||

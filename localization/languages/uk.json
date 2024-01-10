@@ -50,6 +50,9 @@
     "addBookmark": "Додати закладку",
     "searchBookmarks": "Шукати в закладках",
     "bookmarksAddTag": "Додати мітку...",
+    "bookmarksRenameTag": "Перейменувати мітку",
+    "bookmarksDeleteTag": "Видалити мітку",
+    "deleteBookmarksWithTag": "Видалити закладки з міткою",
     "bookmarksSimilarItems": "Подібні елементи",
     "searchHistory": "Шукати в історії",
     "importBookmarks": "Імпортувати закладки",
@@ -150,7 +153,7 @@
     "settingsDarkModeNever": "Ніколи",
     "settingsDarkModeNight": "Вночі",
     "settingsDarkModeAlways": "Завжди",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Дотримуватися системної теми",
     "settingsSiteThemeToggle": "Увімкнути тему сайту",
     "settingsAdditionalFeaturesHeading": "Додаткові можливості",
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
@@ -161,11 +164,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
     },
+    "settingsUserscriptShowDirectory": "Показати каталог скриптів",
     "settingsUserAgentToggle": "Використовувати власний агент користувача",
     "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Надсилати статистику використання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Детальніше</a>)"
     },
+    "settingsStartupOptions": "При запуску Min: ",
+    "settingsStartupCreateTask": "Відкрити попередні вкладки",
+    "settingsStartupNewTaskandBackground": "Перемістити попередні вкладки до фонового завдання",
+    "settingsStartupNewTaskOnly": "Відкрити нове порожнє завдання",
+    "settingsNewWindowOptions": "В нових вікнах: ",
+    "settingsNewWindowCreateTask": "Створити нове завдання",
+    "settingsNewWindowPickTask": "Показати список завдань",
     "settingsSearchEngineHeading": "Пошукова система",
     "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
     "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",
@@ -185,6 +196,7 @@
     "appMenuDuplicateTab": "Дублювати вкладку",
     "appMenuNewPrivateTab": "Нова приватна вкладка",
     "appMenuNewTask": "Нове завдання",
+    "appMenuNewWindow": "Нове вікно",
     "appMenuSavePageAs": "Зберегти сторінку як",
     "appMenuPrint": "Друк",
     "appMenuEdit": "Редагувати",
@@ -225,6 +237,7 @@
     "appMenuQuit": "Вийти з %n",
     "appMenuBringToFront": "Все на передній план",
     /* PDF Viewer */
+    "PDFInvertPage": "Інвертувати кольори сторінки",
     "PDFPageCounter": {
       "unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"
     },
@@ -261,6 +274,7 @@
     "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
     "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
     "passwordManagerSetupInstalling": "Встановлення...",
+    "passwordManagerBitwardenSignIn": "Щоб підключити свій обліковий запис Bitwarden, перейдіть на сторінку vault.bitwarden.com/#/settings/account, прокрутіть униз і виберіть \"Переглянути ключ API\". Потім вставте значення в поля нижче.",
     "passwordManagerSetupSignIn": "Увійдіть до менеджера паролів, щоб почати використовувати автозаповнення. Ваші облікові дані не зберігатимуться ніде в межах Min.",
     "disableAutofill": "Вимкнути автозаповнення",
     "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",
@@ -277,7 +291,7 @@
     "savedPasswordsNeverSavedLabel": "Ніколи не зберігаються",
     "deletePassword": "Видалити пароль для %s?",
     /* Dialogs */
-    "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Увійти на %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Підтвердити",
     "dialogSkipButton": "Скасувати",
     "username": "Ім'я користувача",

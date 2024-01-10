@@ -50,6 +50,9 @@
     "addBookmark": "Отмятане на страница",
     "searchBookmarks": "Търсене на отметки",
     "bookmarksAddTag": "Добавяне на таг...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Подобни елементи",
     "searchHistory": "История на търсенията",
     "importBookmarks": "Внасяне на отметки от HTML файл",
@@ -159,9 +162,17 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
     "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
     "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Търсачки",
     "settingsDefaultSearchEngine": "Изберете търсачка по подразбиране:",
     "settingsDDGExplanation": "Поставете DuckDuckGo като търсачка по подразбиране, за да получавате моментални отговори в лентата за търсене.",
@@ -181,6 +192,7 @@
     "appMenuDuplicateTab": "Дупликиране на раздела",
     "appMenuNewPrivateTab": "Нов поверителен раздел",
     "appMenuNewTask": "Нова задача",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Запазване на страницата като",
     "appMenuPrint": "Отпечатване",
     "appMenuEdit": "Редактиране",
@@ -221,6 +233,7 @@
     "appMenuQuit": "Излизане от %n",
     "appMenuBringToFront": "Извеждане на всички отпред",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"
     },
@@ -257,6 +270,7 @@
     "passwordManagerSetupStep2": "След това плъзнете уреда в полето отдолу:",
     "passwordManagerSetupDragBox": "Плъзнете уреда тук",
     "passwordManagerSetupInstalling": "Инсталиране...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Впишете се във Вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
     "disableAutofill": "Деактивиране на автоматично попълване на пароли",
     "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",
@@ -273,7 +287,7 @@
     "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Изтрий парола за %s?",
     /* Dialogs */
-    "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Впишете се в %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Потвърждаване",
     "dialogSkipButton": "Отказване",
     "username": "Потребителско име",

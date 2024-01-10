@@ -7,6 +7,7 @@ const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
 const settings = require('util/settings/settings.js')
 const urlParser = require('util/urlParser.js')
+const keybindings = require('keybindings.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -20,10 +21,7 @@ const tabBar = {
   containerInner: document.getElementById('tabs-inner'),
   tabElementMap: {}, // tabId: tab element
   events: new EventEmitter(),
-  dragulaInstance: dragula([document.getElementById('tabs-inner')], {
-    direction: 'horizontal',
-    slideFactorX: 25
-  }),
+  dragulaInstance: null,
   getTab: function (tabId) {
     return tabBar.tabElementMap[tabId]
   },
@@ -66,11 +64,6 @@ const tabBar = {
       pbIcon.className = 'icon-tab-is-private tab-icon tab-info-icon i carbon:view-off'
       iconArea.appendChild(pbIcon)
     }
-
-    var secIcon = document.createElement('i')
-    secIcon.className = 'icon-tab-not-secure tab-icon tab-info-icon i carbon:unlocked'
-    secIcon.title = l('connectionNotSecure')
-    iconArea.appendChild(secIcon)
 
     var closeTabButton = document.createElement('button')
     closeTabButton.className = 'tab-icon tab-close-button i carbon:close'
@@ -168,11 +161,16 @@ const tabBar = {
       tabEl.insertBefore(button, tabEl.children[0])
     })
 
-    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
-    if (tabData.secure === false) {
-      secIcon.hidden = false
-    } else {
-      secIcon.hidden = true
+    var iconArea = tabEl.getElementsByClassName('tab-icon-area')[0]
+
+    var insecureIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
+    if (tabData.secure === true && insecureIcon) {
+      insecureIcon.remove()
+    } else if (tabData.secure === false && !insecureIcon) {
+      var insecureIcon = document.createElement('i')
+      insecureIcon.className = 'icon-tab-not-secure tab-icon tab-info-icon i carbon:unlocked'
+      insecureIcon.title = l('connectionNotSecure')
+      iconArea.appendChild(insecureIcon)
     }
   },
   updateAll: function () {
@@ -212,6 +210,31 @@ const tabBar = {
     } else {
       tabBar.navBar.classList.remove('show-dividers')
     }
+  },
+  initializeTabDragging: function () {
+    tabBar.dragulaInstance = dragula([document.getElementById('tabs-inner')], {
+      direction: 'horizontal',
+      slideFactorX: 25
+    })
+
+    tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
+      var tabId = el.getAttribute('data-tab')
+      if (sibling) {
+        var adjacentTabId = sibling.getAttribute('data-tab')
+      }
+
+      var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
+
+      var newIdx
+      if (adjacentTabId) {
+        newIdx = tabs.getIndex(adjacentTabId)
+      } else {
+        // tab was inserted at end
+        newIdx = tabs.count()
+      }
+
+      tabs.splice(newIdx, 0, oldTab)
+    })
   }
 }
 
@@ -219,15 +242,15 @@ settings.listen('showDividerBetweenTabs', function (dividerPreference) {
   tabBar.handleDividerPreference(dividerPreference)
 })
 
-/* tab loading and progress bar status*/
+/* tab loading and progress bar status */
 webviews.bindEvent('did-start-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
-  tabs.update(tabId,{ loaded: false })
+  tabs.update(tabId, { loaded: false })
 })
 
 webviews.bindEvent('did-stop-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
-  tabs.update(tabId,{ loaded: true })
+  tabs.update(tabId, { loaded: true })
   tabBar.updateTab(tabId)
 })
 
@@ -239,31 +262,12 @@ tasks.on('tab-updated', function (id, key) {
 })
 
 permissionRequests.onChange(function (tabId) {
-  tabBar.updateTab(tabId)
+  if (tabs.get(tabId)) {
+    tabBar.updateTab(tabId)
+  }
 })
 
-if (window.platformType === 'mac') {
-  tabBar.dragulaInstance.containers = []
-} else {
-  tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
-    var tabId = el.getAttribute('data-tab')
-    if (sibling) {
-      var adjacentTabId = sibling.getAttribute('data-tab')
-    }
-
-    var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
-
-    var newIdx
-    if (adjacentTabId) {
-      newIdx = tabs.getIndex(adjacentTabId)
-    } else {
-    // tab was inserted at end
-      newIdx = tabs.count()
-    }
-
-    tabs.splice(newIdx, 0, oldTab)
-  })
-}
+tabBar.initializeTabDragging()
 
 tabBar.container.addEventListener('dragover', e => e.preventDefault())
 

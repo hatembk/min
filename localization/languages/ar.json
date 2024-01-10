@@ -50,6 +50,9 @@
     "addBookmark": "أضف إشارة",
     "searchBookmarks": "البحث عن الإشارات",
     "bookmarksAddTag": "أضف علامة",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "عناصرة مشابهة",
     "searchHistory": "البحث في السجل",
     "importBookmarks": "إسترد إشارات",
@@ -71,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "<a>تراجع؟</a> .تم حذف المهمة"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "البحث في التبويبات",
     "returnToTask": "عد إلى المهمة السابقة",
     "taskDescriptionTwo": "%t و %t",
     "taskDescriptionThree": "أخرى %n و %t ,%t",
@@ -149,7 +152,7 @@
     "settingsDarkModeNever": "لا",
     "settingsDarkModeNight": "في الليل",
     "settingsDarkModeAlways": "دائما",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "استخدم اعدادت النظام",
     "settingsSiteThemeToggle": "تفعيل سمة الموقع",
     "settingsShowDividerToggle": "عرض الفاصل بين علامات التبويب",
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "خاص user-agent إستخدم",
     "settingsUpdateNotificationsToggle": "إبحث تلقائيا عن التحديثات",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML":"إرسال إحصائيات المستخدم - <a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">معرفة المزيد</a>"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "محرك بحث",
     "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
     "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "تكرير التبويب",
     "appMenuNewPrivateTab": "التصفح الخفي",
     "appMenuNewTask": "مهمة جديدة",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "حفظ الصفحة باسم",
     "appMenuPrint": "طباعة",
     "appMenuEdit": "تعديل",
@@ -224,6 +236,7 @@
     "appMenuQuit": "%n انهاء",
     "appMenuBringToFront": "جلب الكل الى المقدمة",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<span id='total'></span> صفخة <input type='text'/> من"
     },
@@ -248,19 +261,24 @@
     "settingsSelectPasswordManager": "إختر واحد من مسيري كلمات المرور",
     "keychainViewPasswords": "عرض كلمات المرور المحفوظة",
     /* Password manager setup */
-    "passwordManagerSetupHeading": null, //missing translation
-    "passwordManagerSetupStep1": null, //missing translation
-    "passwordManagerInstallerSetup": null, //missing translation
-    "passwordManagerSetupLink": null, //missing translation
-    "passwordManagerSetupLinkInstaller": null, //missing translation
-    "passwordManagerSetupStep2": null, //missing translation
-    "passwordManagerSetupDragBox": null, //missing translation
-    "passwordManagerSetupInstalling": null, //missing translation
-    "passwordManagerSetupSignIn": null, //missing translation
-    "disableAutofill": null, //missing translation
-    "passwordManagerSetupUnlockError": null, //missing translation
-    "passwordManagerSetupRetry": null, //missing translation
-    "passwordManagerUnlock": null, //missing translation
+    "passwordManagerSetupHeading": "تم الإنتهاء من %p لاستخدام الملء التلقائي",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "أولاً، <a id='password-manager-setup-link'></a> وقم باستخراجه إلى نظامك الحالي"
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "حمل <a id='password-manager-setup-link-installer'></a> ثم قم بجر الملف للصندوق بالأسفل:"
+    },
+    "passwordManagerSetupLink": "حمل أداة الطرفية %p",
+    "passwordManagerSetupLinkInstaller":  "ملف تثبيت الطرفية %p",
+    "passwordManagerSetupStep2": "ثم قم بجر الأداة للصندوق بالأسفل", 
+    "passwordManagerSetupDragBox": "جر الأداة هنا", 
+    "passwordManagerSetupInstalling": "يتم التثبيت", 
+    "passwordManagerBitwardenSignIn": "لتوصيل حساب Bitwarden الخاص بك إذهب إلى vault.bitwarden.com/#/settings/account، ثم اذهب الى اسفل الصفحة، واختر \"View API Key\" بعدها ألصقه في الحقل بالأسفل.", 
+    "passwordManagerSetupSignIn": "قم بتسجيل الدخول إلى مدير كلمات المرور الخاص بك لإستخدم الملء التلقائي، معلومات الدخول لن يتم تخزينها في اي مكان داخل Min", 
+    "disableAutofill": "إلغاء تفعيل الملء التلقائي", 
+    "passwordManagerSetupUnlockError": "فشل في فتح مخزن كلمات المرور: ", 
+    "passwordManagerSetupRetry": "تأكد من إستخدامك الملف الصحيح وإدخال كلمة مرور صحيحة. يمكنك المحاولة عن طريق جر الأداة هنا مجدداً.", 
+    "passwordManagerUnlock": "أدخل كلمة المرور الرئيسية الخاصة بـ %p لفتح مخزن كلمات المرور:", 
     /* Password save bar */
     "passwordCaptureSavePassword": "؟%s حقظ كلمة المرور ل",
     "passwordCaptureSave": " حفظ",
@@ -273,7 +291,7 @@
     "deletePassword": "؟%s حذف كلمة المرور ل",
 
     /* Dialogs */
-    "loginPromptTitle": "(%r) %h تسجيل الدخول إلى",
+    "loginPromptTitle": "%h تسجيل الدخول إلى",
     "dialogConfirmButton": "موافقة",
     "dialogSkipButton": "إلغاء",
     "username": "إسم المستخدم",

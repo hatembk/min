@@ -26,15 +26,6 @@ function buildAppMenu (options = {}) {
       }
     },
     {
-      label: l('appMenuDuplicateTab'),
-      accelerator: getFormattedKeyMapEntry('duplicateTab') || 'shift+CmdOrCtrl+d',
-      click: function (item, window, event) {
-        if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'duplicateTab')
-        }
-      }
-    },
-    {
       label: l('appMenuNewPrivateTab'),
       accelerator: getFormattedKeyMapEntry('addPrivateTab') || 'shift+CmdOrCtrl+p',
       click: function (item, window, event) {
@@ -49,6 +40,17 @@ function buildAppMenu (options = {}) {
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addTask')
+        }
+      }
+    },
+    {
+      label: l('appMenuNewWindow'),
+      accelerator: getFormattedKeyMapEntry('addWindow') || 'shift+CmdOrCtrl+n',
+      click: function () {
+        if (isFocusMode) {
+          showFocusModeDialog2()
+        } else {
+          createWindow()
         }
       }
     }
@@ -90,7 +92,7 @@ function buildAppMenu (options = {}) {
     accelerator: 'CmdOrCtrl+,',
     click: function (item, window) {
       sendIPCToWindow(window, 'addTab', {
-        url: 'file://' + __dirname + '/pages/settings/index.html'
+        url: 'min://app/pages/settings/index.html'
       })
     }
   }
@@ -257,10 +259,15 @@ function buildAppMenu (options = {}) {
           click: function (item, window) {
             if (isFocusMode) {
               isFocusMode = false
-              sendIPCToWindow(window, 'exitFocusMode')
+              windows.getAll().forEach(win => sendIPCToWindow(win, 'exitFocusMode'))
             } else {
               isFocusMode = true
-              sendIPCToWindow(window, 'enterFocusMode')
+              windows.getAll().forEach(win => sendIPCToWindow(win, 'enterFocusMode'))
+
+              // wait to show the message until the tabs have been hidden, to make the message less confusing
+              setTimeout(function() {
+                showFocusModeDialog1()
+              }, 16);
             }
           }
         },
@@ -285,19 +292,30 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'inspectPage')
           }
         },
+        // this is defined a second time (but hidden) in order to provide two keyboard shortcuts
+        {
+          label: l('appMenuInspectPage'),
+          visible: false,
+          accelerator: 'f12',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'inspectPage')
+          }
+        },
         {
           type: 'separator'
         },
-        {
-          label: l('appMenuReloadBrowser'),
-          accelerator: undefined,
-          click: function (item, focusedWindow) {
-            if (focusedWindow) {
-              destroyAllViews()
-              focusedWindow.reload()
-            }
-          }
-        },
+        ...(isDevelopmentMode ?
+          [
+            {
+              label: l('appMenuReloadBrowser'),
+              accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
+              click: function (item, focusedWindow) {
+                  destroyAllViews()
+                  windows.getAll().forEach(win => win.close())
+                  createWindow()
+              }
+            },
+          ] : []),
         {
           label: l('appMenuInspectBrowser'),
           accelerator: (function () {
@@ -323,7 +341,7 @@ function buildAppMenu (options = {}) {
             label: l('appMenuClose'),
             accelerator: 'CmdOrCtrl+W',
             click: function (item, window) {
-              if (mainWindow && !mainWindow.isFocused()) {
+              if (windows.getAll().length > 0 && !windows.getAll().some(win => win.isFocused())) {
                 // a devtools window is focused, close it
                 var contents = webContents.getAllWebContents()
                 for (var i = 0; i < contents.length; i++) {
@@ -341,9 +359,9 @@ function buildAppMenu (options = {}) {
             type: 'checkbox',
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
-              if (mainWindow) {
-                mainWindow.setAlwaysOnTop(item.checked)
-              }
+              windows.getAll().forEach(function(win) {
+                win.setAlwaysOnTop(item.checked)
+              })
               settings.set('windowAlwaysOnTop', item.checked)
             }
           },
@@ -431,6 +449,16 @@ function createDockMenu () {
         label: l('appMenuNewTask'),
         click: function (item, window) {
           sendIPCToWindow(window, 'addTask')
+        }
+      },
+      {
+        label: l('appMenuNewWindow'),
+        click: function () {
+          if (isFocusMode) {
+            showFocusModeDialog2()
+          } else {
+            createWindow()
+          }
         }
       }
     ]

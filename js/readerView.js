@@ -1,15 +1,11 @@
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
-var searchbar = require('searchbar/searchbar.js')
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var bangsPlugin = require('searchbar/bangsPlugin.js')
 var urlParser = require('util/urlParser.js')
-var { db } = require('util/database.js')
 
 var readerDecision = require('readerDecision.js')
 
 var readerView = {
-  readerURL: urlParser.getFileURL(__dirname + '/reader/index.html'),
+  readerURL: 'min://app/reader/index.html',
   getReaderURL: function (url) {
     return readerView.readerURL + '?url=' + url
   },

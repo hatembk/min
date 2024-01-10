@@ -50,6 +50,9 @@
     "addBookmark": "ブックマークを追加",
     "searchBookmarks": "ブックマークを検索",
     "bookmarksAddTag": "タグを追加...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "類似アイテム",
     "searchHistory": "検索履歴",
     "importBookmarks": "HTMLファイルからブックマークをインポートする",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "カスタムユーザーエージェントを使用する",
     "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "使用統計を送信する (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">より詳しい情報</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "検索エンジン",
     "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
     "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "重複タブ",
     "appMenuNewPrivateTab": "新規プライベートタブ",
     "appMenuNewTask": "新規タスク",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "ページを別名で保存",
     "appMenuPrint": "プリント",
     "appMenuEdit": "編集",
@@ -224,6 +236,7 @@
     "appMenuQuit": "%nを終了",
     "appMenuBringToFront": "すべてを最前面に移動",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"
     },
@@ -260,6 +273,7 @@
     "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
     "passwordManagerSetupDragBox": "ここにツールをドラッグ",
     "passwordManagerSetupInstalling": "インストールしています...",
+    "passwordManagerBitwardenSignIn": "Bitwardenアカウントに接続するには、vault.bitwarden.com/#/settings/accountにアクセスし、一番下までスクロールして、「APIキーを表示」を選択します。 次に、値を下のフィールドに貼り付けます。",
     "passwordManagerSetupSignIn": "パスワードマネージャーにログインして、自動入力の使用を開始します。 資格情報はMin内のどこにも保存されません。",
     "disableAutofill": "自動入力を無効にする",
     "passwordManagerSetupUnlockError": "パスワードストアのロック解除に失敗しました： ",
@@ -276,7 +290,7 @@
     "savedPasswordsNeverSavedLabel": "保存されなかった",
     "deletePassword": "％sのパスワードを削除しますか？",
     /* Dialogs */
-    "loginPromptTitle": "％hにサインイン（％r）",
+    "loginPromptTitle": "％hにサインイン",
     "dialogConfirmButton": "確認する",
     "dialogSkipButton": "キャンセル",
     "username": "ユーザー名",

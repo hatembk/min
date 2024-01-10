@@ -50,6 +50,9 @@
     "addBookmark": "Add bookmark",
     "searchBookmarks": "Search bookmarks",
     "bookmarksAddTag": "Add tag...",
+    "bookmarksRenameTag": "Rename Tag",
+    "bookmarksDeleteTag": "Delete Tag",
+    "deleteBookmarksWithTag": "Delete Bookmarks with Tag",
     "bookmarksSimilarItems": "Similar items",
     "searchHistory": "Search history",
     "importBookmarks": "Import bookmarks from HTML file",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
     },
+    "settingsUserscriptShowDirectory": "Show script directory",
     "settingsUserAgentToggle": "Use a custom user agent",
     "settingsUpdateNotificationsToggle": "Automatically check for updates",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Send usage statistics (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">More info</a>)"
     },
+    "settingsStartupOptions": "When Min starts: ",
+    "settingsStartupCreateTask": "Re-open previous tabs",
+    "settingsStartupNewTaskandBackground": "Move previous tabs to a background task",
+    "settingsStartupNewTaskOnly": "Open a new blank task",
+    "settingsNewWindowOptions": "In new windows: ",
+    "settingsNewWindowCreateTask": "Create a new task",
+    "settingsNewWindowPickTask": "Show task list",
     "settingsSearchEngineHeading": "Search Engine",
     "settingsDefaultSearchEngine": "Choose a default search engine:",
     "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "Duplicate Tab",
     "appMenuNewPrivateTab": "New Private Tab",
     "appMenuNewTask": "New Task",
+    "appMenuNewWindow": "New Window",
     "appMenuSavePageAs": "Save Page As",
     "appMenuPrint": "Print",
     "appMenuEdit": "Edit",
@@ -224,6 +236,7 @@
     "appMenuQuit": "Quit %n",
     "appMenuBringToFront": "Bring All to Front",
     /* PDF Viewer */
+    "PDFInvertPage": "Invert page colors",
     "PDFPageCounter": {
       "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
     },
@@ -260,6 +273,7 @@
     "passwordManagerSetupStep2": "Then drag the tool into the box below:",
     "passwordManagerSetupDragBox": "Drag the tool here",
     "passwordManagerSetupInstalling": "Installing...",
+    "passwordManagerBitwardenSignIn": "To connect your Bitwarden account, go to vault.bitwarden.com/#/settings/account, scroll to the bottom, and choose \"View API Key\". Then paste the values into the fields below.",
     "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
     "disableAutofill": "Disable Autofill",
     "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
@@ -276,7 +290,7 @@
     "savedPasswordsNeverSavedLabel": "Never saved",
     "deletePassword": "Delete password for %s?",
     /* Dialogs */
-    "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Sign in to %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirm",
     "dialogSkipButton": "Cancel",
     "username": "Username",

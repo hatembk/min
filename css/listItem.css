@@ -2,7 +2,7 @@
   width: 100%;
   display: block;
   position: relative;
-  padding: 0.55em 0.55em 0.55em 9px;
+  padding: 8px 9px 9px 9px;
   cursor: pointer;
   transition: 0.2s transform, 0.2s opacity;
 }
@@ -40,7 +40,6 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  line-height: 1.1em;
 }
 .searchbar-item .title.wide {
   max-width: 70%;
@@ -152,7 +151,6 @@ body.dark-mode.touch .searchbar-item .action-button {
   white-space: nowrap;
   text-overflow: ellipsis;
   max-height: 2em;
-  line-height: 1em;
 }
 
 .searchbar-item .image {
@@ -167,16 +165,22 @@ body.dark-mode.touch .searchbar-item .action-button {
 .searchbar-item .description-block {
   display: block;
   line-height: 1.15em;
-  max-height: 2.2em;
+  max-height: 2.3em;
   overflow: hidden;
   opacity: 0.666;
   font-size: 0.85em;
   margin-top: 0.1em;
   margin-right: 2.5em;
 }
+.searchbar-item .description-block strong {
+  font-size: inherit;
+  font-weight: 500;
+}
 /* when a result is selected, we can show more of the description */
 .searchbar-item:focus .description-block {
   max-height: none;
+  opacity: 0.8;
+  line-height: 1.2em;
 }
 
 .searchbar-item .attribution {

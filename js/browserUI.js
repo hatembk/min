@@ -14,7 +14,12 @@ var searchbar = require('searchbar/searchbar.js')
 /* creates a new task */
 
 function addTask () {
-  tasks.setSelected(tasks.add())
+  // insert after current task
+  let index
+  if (tasks.getSelected()) {
+    index = tasks.getIndex(tasks.getSelected().id) + 1
+  }
+  tasks.setSelected(tasks.add({}, index))
 
   tabBar.updateAll()
   addTab()
@@ -139,6 +144,14 @@ function closeTab (tabId) {
 
 /* changes the currently-selected task and updates the UI */
 
+function setWindowTitle (taskData) {
+  if (taskData.name) {
+    document.title = (taskData.name.length > 100 ? taskData.name.substring(0, 100) + '...' : taskData.name)
+  } else {
+    document.title = 'Min'
+  }
+}
+
 function switchToTask (id) {
   tasks.setSelected(id)
 
@@ -161,21 +174,41 @@ function switchToTask (id) {
   } else {
     addTab()
   }
+
+  setWindowTitle(taskData)
 }
+
+tasks.on('task-updated', function (id, key) {
+  if (key === 'name' && id === tasks.getSelected().id) {
+    setWindowTitle(tasks.get(id))
+  }
+})
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
 function switchToTab (id, options) {
   options = options || {}
 
-  tabEditor.hide()
-
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
   webviews.setSelected(id, {
     focus: options.focusWebview !== false
   })
+
+  tabEditor.hide()
+
+  if (!tabs.get(id).url) {
+    document.body.classList.add('is-ntp')
+  } else {
+    document.body.classList.remove('is-ntp')
+  }
 }
+
+tasks.on('tab-updated', function (id, key) {
+  if (key === 'url' && id === tabs.getSelected()) {
+    document.body.classList.remove('is-ntp')
+  }
+})
 
 webviews.bindEvent('did-create-popup', function (tabId, popupId, initialURL) {
   var popupTab = tabs.add({
@@ -188,7 +221,7 @@ webviews.bindEvent('did-create-popup', function (tabId, popupId, initialURL) {
   switchToTab(popupTab)
 })
 
-webviews.bindEvent('new-tab', function (tabId, url) {
+webviews.bindEvent('new-tab', function (tabId, url, openInForeground) {
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
@@ -196,7 +229,7 @@ webviews.bindEvent('new-tab', function (tabId, url) {
 
   addTab(newTab, {
     enterEditMode: false,
-    openInBackground: !settings.get('openTabsInForeground')
+    openInBackground: !settings.get('openTabsInForeground') && !openInForeground
   })
 })
 

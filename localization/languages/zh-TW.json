@@ -50,6 +50,9 @@
     "addBookmark": "加入書籤",
     "searchBookmarks": "搜尋書籤",
     "bookmarksAddTag": "新增標籤",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "相似項目",
     "searchHistory": "搜尋歷史",
     "importBookmarks": "自 HTML 檔案匯入書籤",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "使用自訂使用者代理",
     "settingsUpdateNotificationsToggle": "自動檢查更新",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "傳送使用統計資料 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多資訊</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "搜尋引擎",
     "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
     "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "複製分頁",
     "appMenuNewPrivateTab": "新無痕分頁",
     "appMenuNewTask": "新工作",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "另存網頁",
     "appMenuPrint": "列印",
     "appMenuEdit": "編輯",
@@ -224,6 +236,7 @@
     "appMenuQuit": "結束 %n",
     "appMenuBringToFront": "顯示所有視窗",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
     },
@@ -260,6 +273,7 @@
     "passwordManagerSetupStep2": "然後將檔案拖曳至下方：",
     "passwordManagerSetupDragBox": "將檔案拖至此處",
     "passwordManagerSetupInstalling": "正在安裝...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
     "disableAutofill": "取消",
     "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
@@ -276,7 +290,7 @@
     "savedPasswordsNeverSavedLabel": "永不儲存",
     "deletePassword": "刪除 %s 的密碼?",
     /* Dialogs */
-    "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "登入 %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "確認",
     "dialogSkipButton": "取消",
     "username": "使用者名稱",

@@ -53,7 +53,7 @@ function showBookmarkEditor (url, item) {
 function getBookmarkListItemData (result, focus) {
   return {
     title: result.title,
-    secondaryText: urlParser.getSourceURL(result.url),
+    secondaryText: urlParser.basicURL(urlParser.getSourceURL(result.url)),
     fakeFocus: focus,
     click: function (e) {
       searchbar.openURL(result.url, e)
@@ -91,7 +91,10 @@ const bookmarkManager = {
         parsedText.tags.forEach(function (tag) {
           tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
             tabEditor.show(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, '').trim())
-          }, { autoRemove: false }))
+          }, {
+            autoRemove: false,
+            onModify: () => bookmarkManager.showBookmarks(text, input, event)
+          }))
         })
         // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
         if (!parsedText.text) {
@@ -99,6 +102,8 @@ const bookmarkManager = {
             var el = bookmarkEditor.getTagElement(suggestion, false, function () {
               var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
               tabEditor.show(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
+            }, {
+              onModify: () => bookmarkManager.showBookmarks(text, input, event)
             })
             if (index >= maxTagSuggestions) {
               el.classList.add('overflowing')
@@ -161,10 +166,7 @@ const bookmarkManager = {
               return
             }
             searchbarPlugins.addHeading('bangs', { text: l('bookmarksSimilarItems') })
-            suggestedResults.sort(function (a, b) {
-              // order by last visit
-              return b.lastVisit - a.lastVisit
-            }).forEach(function (result, index) {
+            suggestedResults.forEach(function (result, index) {
               var item = searchbarUtils.createItem(getBookmarkListItemData(result, false))
               container.appendChild(item)
             })

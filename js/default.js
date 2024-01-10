@@ -8,11 +8,12 @@ process.argv.forEach(function (arg) {
   }
 })
 
+window.windowId = globalArgs['window-id']
+
 window.electron = require('electron')
 window.fs = require('fs')
 window.EventEmitter = require('events')
 window.ipc = electron.ipcRenderer
-window.Dexie = require('dexie')
 
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
@@ -44,6 +45,16 @@ ipc.on('maximize', function () {
 
 ipc.on('unmaximize', function () {
   document.body.classList.remove('maximized')
+})
+
+document.body.classList.add('focused')
+
+ipc.on('focus', function () {
+  document.body.classList.add('focused')
+})
+
+ipc.on('blur', function () {
+  document.body.classList.remove('focused')
 })
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
@@ -129,6 +140,7 @@ window.addEventListener('load', function () {
 })
 
 require('tabState.js').initialize()
+require('tabState/windowSync.js').initialize()
 require('windowControls.js').initialize()
 require('navbar/menuButton.js').initialize()
 
@@ -153,6 +165,8 @@ require('taskOverlay/taskOverlay.js').initialize()
 require('pageTranslations.js').initialize()
 require('sessionRestore.js').initialize()
 require('bookmarkConverter.js').initialize()
+require('newTabPage.js').initialize()
+require('macHandoff.js').initialize()
 
 // default searchbar plugins
 

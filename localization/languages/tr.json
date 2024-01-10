@@ -50,6 +50,9 @@
     "addBookmark": "Yer imlerine Ekle",
     "searchBookmarks": "Yer imlerini ara",
     "bookmarksAddTag": "Etiket Ekle",
+    "bookmarksRenameTag": "Etiketi yeniden adlandır",
+    "bookmarksDeleteTag": "Etiketi kaldır",
+    "deleteBookmarksWithTag": "Etiketli yer imlerini kaldır",
     "bookmarksSimilarItems": "Benzer Olanlar",
     "searchHistory": "Arama Geçmişi",
     "importBookmarks": "Yer imlerini HTML dosyasından içe aktar",
@@ -71,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Görev silindi. <a>Geri?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Arama sekmeleri",
     "returnToTask": "Önceki göreve geri dön",
     "taskDescriptionTwo": "%t ve %t",
     "taskDescriptionThree": "%t, %t ve %n fazlası",
@@ -138,8 +141,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Min şimdiye kadar, <strong></strong> reklam ve takipçi engelledi."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangs": "Özel bangs",
+    "settingsCustomBangsAdd": "Özel bang ekle",
     "settingsCustomBangsPhrase": "Cümle (Gerekli)",
     "settingsCustomBangsSnippet": "Açıklama (İsteğe Bağlı)",
     "settingsCustomBangsRedirect": "Yönlendirme URL'si (Gerekli)",
@@ -149,7 +152,7 @@
     "settingsDarkModeNever": "Asla",
     "settingsDarkModeNight": "Geceleyin",
     "settingsDarkModeAlways": "Her zaman",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Sistem temasını kullan",
     "settingsSiteThemeToggle": "Site temasını etkinleştir",
     "settingsAdditionalFeaturesHeading": "Ek Özellikler",
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
@@ -160,11 +163,19 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan",
     "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Kullanım Bilgilerini Gönder (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Daha Fazla Bilgi</a>)"
     },
+    "settingsStartupOptions": "Min başladığında: ",
+    "settingsStartupCreateTask": "Önceki sekmeleri yeniden aç",
+    "settingsStartupNewTaskandBackground": "Önceki sekmeleri arka plan görevine taşı",
+    "settingsStartupNewTaskOnly": "Yeni bir boş görev aç",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Arama Motoru",
     "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
     "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
@@ -184,6 +195,7 @@
     "appMenuDuplicateTab": "Sekmeyi Çoğalt",
     "appMenuNewPrivateTab": "Yeni Özel Sekme",
     "appMenuNewTask": "Yeni Görev",
+    "appMenuNewWindow": "Yeni Pencere",
     "appMenuSavePageAs": "Sayfayı Farklı Kaydet",
     "appMenuPrint": "Yazdır",
     "appMenuEdit": "Düzenle",
@@ -224,6 +236,7 @@
     "appMenuQuit": "%n Çıkış",
     "appMenuBringToFront": "Tümünü Öne Getir",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"
     },
@@ -260,6 +273,7 @@
     "passwordManagerSetupStep2": "Ardından aracı aşağıdaki kutucuğa sürükleyip bırakın:",
     "passwordManagerSetupDragBox": "Aracı buraya sürükleyin",
     "passwordManagerSetupInstalling": "Yükleniyor...",
+    "passwordManagerBitwardenSignIn": "Bitwarden hesabınızı bağlamak için vault.bitwarden.com/#/settings/account adresine gidin, aşağı kaydırın ve \"View API Key\"yi seçin. Ardından değerleri aşağıdaki alanlara yapıştırın.",
     "passwordManagerSetupSignIn": "Otomatik dolduru kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
     "disableAutofill": "Otomatik Dolduru Devre Dışı Bırak",
     "passwordManagerSetupUnlockError": "Parola kayıtlarının kilidi açılamadı: ",
@@ -276,7 +290,7 @@
     "savedPasswordsNeverSavedLabel": "Daha önce kaydedilmedi", 
     "deletePassword": "% için parola silinsin mi?",
     /* Dialogs */
-    "loginPromptTitle": "Giriş yapın %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Giriş yapın %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Onayla",
     "dialogSkipButton": "İptal",
     "username": "Kullanıcı Adı",
